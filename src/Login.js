@@ -12,19 +12,22 @@ const Login = () => {
     const [value,setValue]= useState(intialData);
     const [error,setError]=useState({});
     const [isSubmit,setIsSubmit]=useState(false);
+const navigate=useNavigate();
+    
 
     const handleChange=(e)=>{
         const {name,value}=e.target;
         setValue({...value,[name]:value});
         console.log(value);
     }
-    const navigate = useNavigate();
+    
 
     const submitHandler=(e)=>{
         e.preventDefault();
         setError(Validite(value));
         setIsSubmit(true);
         navigate('/home');
+        
 
     }
 
@@ -35,6 +38,8 @@ const Login = () => {
         }
     },[error])
 
+
+    
     const Validite=(value)=>{
         const error={};
         if(!value.username){
@@ -49,6 +54,7 @@ const Login = () => {
             error.password='Password must be 5 characters long';
         }
         return error;
+        
 
     }
   return (
@@ -60,19 +66,19 @@ const Login = () => {
         <div className='flex flex-col gap-y-1'>
             <div className='field flex flex-col'>
                 <label className=''>Username</label>
-                <input type='text' name='username' className='border border-gray-600 rounded-md p-1' placeholder='Enter username' value={value.username} 
+                <input type='text' required name='username' className='border border-gray-600 rounded-md p-1' placeholder='Enter username' value={value.username} 
                 onChange={handleChange}></input>
             </div>
             <p>{error.username}</p>
             <div className='field flex flex-col'>
                 <label>Email</label>
-                <input type='email' name='email' className='border border-gray-600 rounded-md p-1' placeholder='Enter email' value={value.email}
+                <input type='email' required name='email' className='border border-gray-600 rounded-md p-1' placeholder='Enter email' value={value.email}
                 onChange={handleChange}></input>
             </div>
             <p>{error.email}</p>
             <div className='field flex flex-col'>
                 <label>Password</label>
-                <input type='password' name='password' className='border border-gray-600 rounded-md p-1' placeholder='Enter password' value={value.password}
+                <input type='password' required name='password' className='border border-gray-600 rounded-md p-1' placeholder='Enter password' value={value.password}
                 onChange={handleChange}></input>
             </div>
             <p>{error.password}</p>
